@@ -10,11 +10,13 @@ class ProductDetailViewModel: ObservableObject {
     @Published var selectedProduct: Product
     @Published var productDescription: String
     @Published var counter: Int = 0
+    @Published var isFavorite: Bool = false
 
     init(selectedProduct: Product, favoritesManager: FavoritesManager? = nil) {
             self.selectedProduct = selectedProduct
             self.productDescription = selectedProduct.description
             self.favoritesManager = favoritesManager ?? FavoritesManager()
+            self.isFavorite = ((favoritesManager?.isFavorite(productId: selectedProduct.id)) != nil)
         }
 
     func increment() {
@@ -39,10 +41,7 @@ class ProductDetailViewModel: ObservableObject {
 
     func toggleFavourite() {
         favoritesManager.toggleFavorite(for: selectedProduct.id)
-    }
-
-    func isFavorite() -> Bool {
-        return favoritesManager.isFavorite(productId: selectedProduct.id)
+        isFavorite = favoritesManager.isFavorite(productId: selectedProduct.id)
     }
 
     func addToCart() {

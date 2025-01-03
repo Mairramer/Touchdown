@@ -32,7 +32,7 @@ struct QuantityFavouriteDetailView: View {
                 viewModel.toggleFavourite()
             }) {
                 Image(systemName: "heart.circle")
-                    .foregroundColor(viewModel.isFavorite() ? .pink : .gray)
+                    .foregroundColor(viewModel.isFavorite ? .pink : .gray)
             }
         } //: HSTACK
         .font(.system(.title, design: .rounded))
@@ -44,12 +44,8 @@ struct QuantityFavouriteDetailView: View {
 // MARK: - PREVIEW
 struct QuantityFavouriteDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        // Create a sample product and favorites manager for the preview
-        let sampleProduct = Product(id: 1, name: "Sample Product", image: "sample", price: 100, description: "A great product", color: [1.0, 0.0, 0.0])
         let favoritesManager = FavoritesManager()
         let viewModel = ProductDetailViewModel(selectedProduct: sampleProduct, favoritesManager: favoritesManager)
-
-        // Pass the viewModel to QuantityFavouriteDetailView
         QuantityFavouriteDetailView(viewModel: viewModel)
             .previewLayout(.sizeThatFits)
             .padding()
